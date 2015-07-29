@@ -1,14 +1,15 @@
 <?php
 namespace PMVC\PlugIn\get;
+\PMVC\l(__DIR__.'/src/GetInterface.php');
 
-${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\Get';
+${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\get';
 
 function get($k)
 {
     return \PMVC\plug('get')->get($k);
 }
 
-class Get extends \PMVC\PlugIn
+class get extends \PMVC\PlugIn
 {
     public function get($k)
     {
@@ -18,7 +19,7 @@ class Get extends \PMVC\PlugIn
         } else {
             if (is_array($this['order'])) {
                 foreach ($this['order'] as $get) {
-                    if (\PMVC\plug($get)->isset($k)) {
+                    if (\PMVC\plug($get)->has($k)) {
                         return \PMVC\plug($get)->get($k);
                     }
                 }
