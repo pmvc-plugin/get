@@ -16,9 +16,11 @@ class Get extends \PMVC\PlugIn
         if (!is_null($option)) {
             return $option;
         } else {
-            foreach ($this['order'] as $get) {
-                if (\PMVC\plug($get)->isset($k)) {
-                    return \PMVC\plug($get)->get($k);
+            if (is_array($this['order'])) {
+                foreach ($this['order'] as $get) {
+                    if (\PMVC\plug($get)->isset($k)) {
+                        return \PMVC\plug($get)->get($k);
+                    }
                 }
             }
         }
