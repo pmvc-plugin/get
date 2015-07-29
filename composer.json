@@ -1,0 +1,17 @@
+{
+    "name": "pmvc-plugin/get",
+    "description": "smart get function, help you get configure from different storage simply. ",
+    "type": "library",
+    "keywords": ["get", "pmvc", "plug-in"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Hill",
+            "email": "hill@kimo.com"
+        }
+    ],
+    "require": {
+        "pmvc/pmvc": "*"
+    },
+    "minimum-stability": "dev"
+}
