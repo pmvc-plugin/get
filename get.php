@@ -13,14 +13,15 @@ class get extends \PMVC\PlugIn
 {
     public function get($k)
     {
-        $option = \PMVC\getOption($k);
+        $option =& \PMVC\getOption($k);
         if (!is_null($option)) {
             return $option;
         } else {
             if (is_array($this['order'])) {
                 foreach ($this['order'] as $get) {
-                    if (\PMVC\plug($get)->has($k)) {
-                        return \PMVC\plug($get)->get($k);
+                    $plug = \PMVC\plug($get);
+                    if ($plug && $plug->has($k)) {
+                        return $plug->get($k);
                     }
                 }
             }
