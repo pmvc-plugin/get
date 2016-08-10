@@ -28,3 +28,5 @@ smart get function, help you get configure from different storage simply.
 #### 2.2 Or use composer command-line
    * php composer.phar require pmvc-plugin/get
 
+## GET Pakcage List
+https://packagist.org/search/?tags[]=get&tags[]=pmvc
