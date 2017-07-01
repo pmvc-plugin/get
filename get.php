@@ -1,15 +1,14 @@
 <?php
+
 namespace PMVC\PlugIn\get;
+
+use PMVC\PlugIn;
+
 \PMVC\l(__DIR__.'/src/GetInterface.php');
 
 ${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\get';
 
-function get($k)
-{
-    return \PMVC\plug('get')->get($k);
-}
-
-class get extends \PMVC\PlugIn
+class get extends PlugIn
 {
     public function get($k)
     {
