@@ -22,6 +22,12 @@ class get extends PlugIn
                         \PMVC\option('set', $k, $option);
                     }
                 }
+            } else {
+                trigger_error(
+                    '[PlugIn:get] should defined order with array. ['.
+                    print_r($this['order'], true).
+                    ']'
+                );
             }
         }
         return $option;
