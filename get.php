@@ -10,16 +10,16 @@ ${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\get';
 
 class get extends PlugIn
 {
-    public function get($k)
+    public function get($k, $default = null)
     {
-        $option =& \PMVC\getOption($k);
-        if (is_null($option)) {
+        $result =& \PMVC\getOption($k);
+        if (is_null($result)) {
             if (is_array($this['order'])) {
                 foreach ($this['order'] as $get) {
                     $plug = \PMVC\plug($get);
                     if ($plug && $plug->has($k)) {
-                        $option = $plug->get($k);
-                        \PMVC\option('set', $k, $option);
+                        $result = $plug->get($k);
+                        break;
                     }
                 }
             } else {
@@ -29,7 +29,13 @@ class get extends PlugIn
                     ']'
                 );
             }
+            if (is_null($result)) {
+                $result = $default;
+            }
+            if (!is_null($result)) {
+                \PMVC\option('set', $k, $result);
+            }
         }
-        return $option;
+        return $result;
     }
 }
