@@ -2,17 +2,31 @@
 
 namespace PMVC\PlugIn\get;
 
-use PHPUnit_Framework_TestCase;
+use PMVC\TestCase;
 
-class GetTest extends PHPUnit_Framework_TestCase
+const emptyOrder = ['order' => []];
+
+class GetTest extends TestCase
 {
-    private $_plug='get';
-    function testPlugin()
+    private $_plug = 'get';
+    public function testPlugin()
     {
         ob_start();
-        print_r(\PMVC\plug($this->_plug, ['order'=>[]]));
+        print_r(\PMVC\plug($this->_plug, emptyOrder));
         $output = ob_get_contents();
         ob_end_clean();
-        $this->assertContains($this->_plug,$output);
+        $this->haveString($this->_plug, $output);
+    }
+
+    /**
+     * @expectedException        UnexpectedValueException
+     * @expectedExceptionMessage should not pass key with null
+     */
+    public function testGetNullKey()
+    {
+        $get = \PMVC\plug($this->_plug, emptyOrder);
+        $this->willThrow(function () use ($get) {
+            $get->get(null);
+        }, false);
     }
 }

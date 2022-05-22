@@ -9,15 +9,18 @@ const GET_ORDER = 'order';
 /**
  * Put this outside class, so we don't need init it in very begin
  */
-\PMVC\l(__DIR__.'/src/GetInterface.php');
+\PMVC\l(__DIR__ . '/src/GetInterface.php');
 
-${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\get';
+${_INIT_CONFIG}[_CLASS] = __NAMESPACE__ . '\get';
 
 class get extends PlugIn
 {
     public function get($k, $default = null)
     {
-        $result =& \PMVC\getOption($k);
+        if (is_null($k)) {
+            $this->unexpected_key_exception();
+        }
+        $result = &\PMVC\getOption($k);
         if (is_null($result)) {
             foreach ($this[GET_ORDER] as $get) {
                 $plug = \PMVC\plug($get);
@@ -42,15 +45,15 @@ class get extends PlugIn
     public function init()
     {
         if (!is_array($this[GET_ORDER])) {
-            $this->unexpected_order_value_exception($this[GET_ORDER]); 
+            $this->unexpected_order_value_exception($this[GET_ORDER]);
         }
     }
 
     public function offsetSet($k, $v)
     {
         if ($k === GET_ORDER && !is_array($v)) {
-            $this->unexpected_order_value_exception($v); 
-        } 
+            $this->unexpected_order_value_exception($v);
+        }
         return parent::offsetSet($k, $v);
     }
 }
